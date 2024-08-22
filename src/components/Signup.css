@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.login-form p{
+    text-align: left;
+    font-weight: 400;
+    margin-top: 5px;
+    }
+
+
+.login-container {
+  margin: 0 auto;
+  max-width: 410px;
+  padding: 2rem 1.5rem;
+  border-radius: 0.5rem;
+  background: #f5dddd;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.login-form h5{
+    text-align: center;
+    font-weight: 400;
+    margin: 6px;
+}
+
+
+.login-form .input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 1.06rem;
+  border-radius: 0.31rem;
+  border: 1px solid #bfb3f2;
+  padding: 0px 1.25rem 0 3.12rem;
+  transition: 0.2s ease;
+  
+}
+
+
+
+.login-form .input::placeholder {
+  color: #9284c8;
+}
+
+.login-form .login-button {
+  border: none;
+  outline: none;
+  width: 70%;
+  height: 40px;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 2.10rem;
+  border-radius: 0.31rem;
+  background: #5F41E4;
+  transition: 0.3s ease;
+}
+
+.login-form .login-button:hover {
+  background: #4320df;
+}
+
+.login-container .signup-prompt {
+  text-align: center;
+  font-size: 1.06rem;
+  font-weight: 500;
+  margin: 1.75rem 0 0.31rem;
+  margin-top: 20px;
+}
+
+
+
