@@ -1,5 +1,5 @@
 import React from 'react'
-import resumeTitle from '../images/resumeTitle.png'
+// import resumeTitle from '../images/resumeTitle.png'
 
 export default function Title() {
     return (

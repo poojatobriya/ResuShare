@@ -3,7 +3,7 @@ import Title from './Title'
 import Features from './Features'
 import Testimonials from './Testimonials'
 import Pricing from './Pricing'
-// import CallToAction from './CallToAction'
+import CallToAction from './CallToAction'
 import Footer from './Footer'
 
 export default function LandingPage() {
@@ -13,7 +13,7 @@ export default function LandingPage() {
         <Features />
         <Testimonials />
         <Pricing />
-        {/* <CallToAction /> */}
+        <CallToAction />
         <Footer />
     </div>
   )
