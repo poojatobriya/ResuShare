@@ -12,3 +12,5 @@ The project leverages MongoDB for the database, Express.js for the server-side f
 By sharing their resumes on the platform, users can not only get their profiles noticed but also learn from other successful resumes. The Resume Showcase Project serves as a valuable resource for users to explore and analyze real-world examples, gaining inspiration and best practices for crafting impactful resumes.
 
 Whether you are a fresher starting your professional journey or an experienced professional looking to stand out, the Resume Showcase Project provides an avenue for sharing and learning from a community of talented individuals. Join us today and unlock the potential to take your career to new heights!
+
+
