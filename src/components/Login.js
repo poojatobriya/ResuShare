@@ -1,88 +1,86 @@
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import alertContext from '../contexts/AlertContext';
 
-
-import './Login.css';
-import React,{ useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios';
-// import alertContext from './AlertContext';
-
-const Login = () => {
-  
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
-   
-    const validateLogin = () => {
-        let errors = {};
-       
+export default function Login() {
+    let { showAlert } = useContext(alertContext);
+    let navigate = useNavigate();
+    let validateLogin = () => {
+        let email = document.getElementById("loginEmail").value;
+        let password = document.getElementById("loginPassword").value;
         let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (!email) {
-            errors.email = "Required";
-        } else if (!email.match(validRegex)) {
-            errors.email = "Enter valid email";
+            document.getElementById("loginErrorEmail").innerText = "Required";
+            return false;
         }
-
+        else if (!email.match(validRegex)) {
+            document.getElementById("loginErrorEmail").innerText = "Enter valid email";
+            return false;
+        }
         if (!password) {
-            errors.password = "Required";
-        } else if (password.length > 25) {
-            errors.password = "Must be 25 characters or less";
-        } else if (password.length < 5) {
-            errors.password = "Must be 5 characters or more";
+            document.getElementById("loginErrorPassword").innerText = "Required";
+            return false
         }
-
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
-   
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validateLogin()) {
-            try {
-                const response = await axios.post('http://localhost:5000/login', { email, password });
-                localStorage.setItem('token', response.data.token);
-                alert('Login successful');
-            } catch (error) {
-                alert('Invalid credentials');
-            }
+        else if (password.length > 25) {
+            document.getElementById("loginErrorPassword").innerText = "Must be 25 characters or less";
+            return false;
         }
-    };
+        else if (password.length < 5) {
+            document.getElementById("loginErrorPassword").innerText = "Must be 5 characters or more";
+            return false;
+        }
+        return true;
+    }
 
-  return (
-    <div className="login-container">
-    
-    <form onSubmit={handleSubmit}  className="login-form">
-    <div className="mb-3"> 
-        <p>Enter Email :</p>
-      <input 
-         type="email"
-         id="loginEmail"
-         placeholder="Email address"
-         icon="mail" 
-         onChange={(e) => setEmail(e.target.value)}
-      />
-       {errors.email && <p className="error">{errors.email}</p>}
-    </div>
-   <div className="mb-3">
-      <p>Enter Password :</p>
-      <input 
-         type="password" 
-         id="loginPassword" 
-         placeholder="Password" 
-         icon="lock" 
-         onChange={(e) => setPassword(e.target.value)}
-      />
-       {errors.password && <p className="error">{errors.password}</p>}
-    </div>
-      <button type="submit" className="login-button">Log In</button>
-    </form>
-    <p className="signup-prompt">
-      Don&apos;t have an account? <Link to="/Signup" className="signup-link">Sign up</Link>
-     
-    </p>
-  </div>
-  );
-};
-
-export default Login;
+    let handleSubmit = async () => {
+        let body = {
+            email: document.getElementById("loginEmail").value,
+            password: document.getElementById("loginPassword").value
+        }
+        document.getElementById("loginErrorEmail").innerText = null;
+        document.getElementById("loginErrorPassword").innerText = null;
+        let response = await fetch('http://localhost:5500/api/auth/login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+        response = await response.json();
+        if (response.success) {
+            showAlert("Login Successfull", "success");
+            localStorage.setItem("token", response.authToken);
+            navigate("/home");
+        }
+        else {
+            showAlert("invalid credentials", 'danger');
+        }
+    }
+    return (
+        <>
+            <div className="row login-margin">
+                <div className="col-md-4"></div>
+                <div className="col-md-4">
+                    <div className="login-div">
+                        <h3 className='my-2'>Welcome Back</h3>
+                        <form onSubmit={(e) => { e.preventDefault(); if (validateLogin()) { handleSubmit(e) } }}>
+                            <div className="mb-3">
+                                <label htmlFor="loginEmail" className="form-label">Email address</label>
+                                <input type="email" className="form-control" id="loginEmail" aria-describedby="emailHelp" placeholder='Enter email' />
+                                <div className="errorMessage" id='loginErrorEmail'></div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="loginPassword" className="form-label">Password</label>
+                                <input type="password" className="form-control" id="loginPassword" placeholder="Enter password" />
+                                <div className="errorMessage" id='loginErrorPassword'></div>
+                            </div>
+                            <button type="submit" className="btn btn-purple btn-dark">Login</button>
+                        </form>
+                        <div id="emailHelp" className="form-text">Don't have an account.</div><span className='w-600'> <Link to="/signup" role='button'>Sign up</Link></span>
+                    </div>
+                </div>
+                <div className="col-md-4"></div>
+            </div>
+        </>
+    )
+}
