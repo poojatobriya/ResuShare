@@ -9,7 +9,7 @@ export default function Pricing() {
       <p>Simple and affordable price plans for you.</p>
 
       <div className="row">
-        <div className="col-lg-4 col-md-6  pricing-column mb-4">
+        <div className="col-lg-4 col-md-6 pricing-column">
           <div className="card">
             <div className="card-header">
               <h3>College Student</h3>
@@ -27,7 +27,7 @@ export default function Pricing() {
         </div>
 
 
-        <div className="col-lg-4 col-md-6  pricing-column mb-4">
+        <div className="col-lg-4 col-md-6 pricing-column">
           <div className="card">
             <div className="card-header">
               <h3>Fresher</h3>
